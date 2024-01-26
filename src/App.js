@@ -106,6 +106,7 @@ export default function App() {
 
   const dataUrl = searchParams.get('dataUrl')
   const assetType = searchParams.get('assetType')
+
   return (
     <ModelViewer dataUrl={dataUrl} assetType={assetType} />
     // <PlyViewer />
