@@ -1,11 +1,10 @@
 import { Loader, Euler } from 'three'
-import { Potree, PointSizeType } from 'potree-core'
-
+import { Potree, PointSizeType, PointCloudOctree } from 'potree-core'
 
 const potree = new Potree()
 
 class PotreeLoader extends Loader {
-  load(dataUrl, onLoad) {
+  async load(dataUrl: string, onLoad: (pointCloud: PointCloudOctree) => void) {
     const { origin, pathname } = new URL(dataUrl)
     const base = origin + pathname.slice(0, pathname.lastIndexOf('/'))
     const rootFile = pathname.split('/').pop()
@@ -13,19 +12,16 @@ class PotreeLoader extends Loader {
 
 
     return (() => {
-          console.log('start')
-          console.log('rootFile', rootFile)
           potree.pointBudget = 20_000_000
           potree.maxNumNodesLoading = 1
 
-          return potree.loadPointCloud(rootFile, (file) => {
+          return potree.loadPointCloud(rootFile!, (file) => {
             console.log('file', file)
             console.log('full link: ', `${base}/${file}${token}`)
             return `${base}/${file}${token}`})
         })()
       .then((pco) => {
-      console.log('mid')
-      const offset = pco.position.clone()
+        const offset = pco.position.clone()
 
         // eslint-disable-next-line no-param-reassign
         pco.pointSizeType = PointSizeType.FIXED
