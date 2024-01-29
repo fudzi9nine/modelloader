@@ -1,16 +1,16 @@
 import "./App.css";
 import * as THREE from "three";
 import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera, CameraControls, Resize, Center, Html, useProgress } from "@react-three/drei";
+import { OrbitControls} from "@react-three/drei";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader'
-import { Suspense, useEffect, useState } from "react";
-import { Points, PointsMaterial, Vector3 } from 'three'
+import { Suspense, useEffect } from "react";
+import { Points, PointsMaterial } from 'three'
 
-import Loader from "./loader";
-import ObjViewer from './modelViewer/viewers/objViewer'
-import PlyViewer from './modelViewer/viewers/plyViewer'
-import PotreeViewer from "./modelViewer/viewers/potreeViewer";
+import { LoaderProvider } from "./services/useLoading";
+
+import Loading from "./loading";
+
 import ModelViewer from "./modelViewer";
 import { AssetType } from "./modelViewer/constants";
 
@@ -109,25 +109,19 @@ export default function App() {
   const dataUrl = searchParams.get('dataUrl')
   const assetType = searchParams.get('assetType')
 
-  const [progress, setProgress] = useState(0)
-
-  const calculateProgress = (loaded, total) => {
-    setProgress(((loaded / total) * 100).toFixed(2))
-  }
-
   return (
-    <>
-    <Canvas 
-      style={{height: '100vh'}} 
-      shadows={assetType === AssetType.OBJ}
-      gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }}
-      raycaster={{ params: { Points: { threshold: 0.01 } } }}>
-      <Suspense fallback={<Loader progress={progress}/>}>
-        <ModelViewer dataUrl={dataUrl} assetType={assetType} calculateProgress={calculateProgress} />
-        <OrbitControls makeDefault />
-      </Suspense>
-    </Canvas>
-    </>
+    <LoaderProvider>
+      <Canvas 
+        style={{height: '100vh'}} 
+        shadows={assetType === AssetType.OBJ}
+        gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }}
+        raycaster={{ params: { Points: { threshold: 0.01 } } }}>
+        <Suspense fallback={<Loading />}>
+          <ModelViewer dataUrl={dataUrl} assetType={assetType} />
+          <OrbitControls makeDefault />
+        </Suspense>
+      </Canvas>
+    </LoaderProvider>
     // <PlyViewer />
     // <ObjViewer />
     // <div className="App">

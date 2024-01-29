@@ -5,9 +5,8 @@ import { Box3, Vector3 } from 'three'
 import { useFrame, useLoader, useThree } from '@react-three/fiber'
 import useCacheCleanup from './services/useCacheCleanup'
 import PotreeLoader from './services/potreeLoader'
+
 const THROTTLE_INTERVAL_MS = 15
-
-
 
 function PotreeViewer ({dataUrl}){
 
@@ -37,9 +36,7 @@ function PotreeViewer ({dataUrl}){
   var radius = pointCloud.boundingSphere.radius;
   var fov = camera.fov;
 
-
   camera.position.set( center.x, center.y, center.z + 1.1*radius/Math.tan(fov*Math.PI/360) );
-
 
   const update = useMemo(() => {
     return _.throttle(() => {

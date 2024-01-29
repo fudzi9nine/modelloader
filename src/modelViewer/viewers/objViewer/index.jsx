@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { useLoader } from "@react-three/fiber";
 import {  Resize, Center, Stage } from "@react-three/drei";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import { useLoading } from "../../../services/useLoading";
 
 // const meshMaterial = new THREE.MeshPhongMaterial({
 //   // opacity: .5,
@@ -15,10 +16,12 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 // })
 
 
-function ObjViewer({dataUrl, calculateProgress}){
+function ObjViewer({dataUrl}){
   console.log('before load')
 
-  const obj = useLoader(OBJLoader, dataUrl, null, (event) => {calculateProgress(event.loaded, event.total)})
+  const {setProgress} = useLoading()
+
+  const obj = useLoader(OBJLoader, dataUrl, null, setProgress)
 
   console.log(obj)
     if(obj){
