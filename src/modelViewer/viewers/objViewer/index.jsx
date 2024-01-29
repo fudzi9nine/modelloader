@@ -1,13 +1,8 @@
 
 import * as THREE from "three";
-import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera, CameraControls, Resize, Center, AccumulativeShadows, Stage, RandomizedLight } from "@react-three/drei";
+import { useLoader } from "@react-three/fiber";
+import {  Resize, Center, Stage } from "@react-three/drei";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
-import { Suspense, useEffect } from "react";
-import { Points, PointsMaterial, Vector3 } from 'three'
-
-
-
 
 // const meshMaterial = new THREE.MeshPhongMaterial({
 //   // opacity: .5,
@@ -20,10 +15,10 @@ import { Points, PointsMaterial, Vector3 } from 'three'
 // })
 
 
-function ObjViewer({dataUrl}){
+function ObjViewer({dataUrl, calculateProgress}){
   console.log('before load')
 
-  const obj = useLoader(OBJLoader, dataUrl)
+  const obj = useLoader(OBJLoader, dataUrl, null, (event) => {calculateProgress(event.loaded, event.total)})
 
   console.log(obj)
     if(obj){
@@ -81,31 +76,25 @@ function ObjViewer({dataUrl}){
 
 
   return (
-    <Canvas style={{height: '100vh'}} shadows>
-      <Suspense fallback={null}>
-        <Stage
-          shadows={{
-            frames: 100,
-            type: 'accumulative',
-            temporal: false,
-            alphaTest: 0.3,
-          }}
-          center={true}
-        >
-          <Resize>
-            <Center >
-                <primitive object={obj} />
-            </ Center >
-          </Resize>
-          {/* <hemisphereLight args={['#fff', '#000']} position={[1, 1, 1]}/> */}
-          {/* <ambientLight args={['#fff', 0.5]} /> */}
-          {/* <directionalLight args={['#fff', 1]} position={[0, 1, 0]} castShadow/> */}
-          <OrbitControls />
-          {/* <color attach='background' args={[new THREE.Color(255, 255, 255)]} /> */}
-        </Stage>
-
-      </Suspense>
-    </Canvas>
+    <Stage
+      shadows={{
+        frames: 100,
+        type: 'accumulative',
+        temporal: false,
+        alphaTest: 0.3,
+      }}
+      center={true}
+    >
+      <Resize>
+        <Center >
+            <primitive object={obj} />
+        </ Center >
+      </Resize>
+      {/* <hemisphereLight args={['#fff', '#000']} position={[1, 1, 1]}/> */}
+      {/* <ambientLight args={['#fff', 0.5]} /> */}
+      {/* <directionalLight args={['#fff', 1]} position={[0, 1, 0]} castShadow/> */}
+      {/* <color attach='background' args={[new THREE.Color(255, 255, 255)]} /> */}
+    </Stage>
   )
 }
 

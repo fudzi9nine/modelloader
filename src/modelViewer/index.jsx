@@ -1,10 +1,10 @@
 import {AssetType} from './constants'
 import { ObjViewer, PlyViewer, PotreeViewer } from './viewers'
 
-function ModelViewer({dataUrl, assetType}){
+function ModelViewer({dataUrl, assetType, calculateProgress}){
   switch(assetType){
     case (AssetType.OBJ):
-      return <ObjViewer dataUrl={dataUrl}/>
+      return <ObjViewer dataUrl={dataUrl} calculateProgress={calculateProgress}/>
     case (AssetType.PLY):
       return <PlyViewer dataUrl={dataUrl}/>
     case (AssetType.POTREE):
