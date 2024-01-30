@@ -1,12 +1,8 @@
 import {AssetType} from './constants'
 import { ObjViewer, PlyViewer, PotreeViewer } from './viewers'
 
-type Props = {
-  dataUrl: string;
-  assetType: AssetType;
-}
-
-function ModelViewer({dataUrl, assetType}: Props){
+function ModelViewer({dataUrl, assetType}){
+  console.log('Inside Model Viewer')
   switch(assetType){
     case (AssetType.OBJ):
       return <ObjViewer dataUrl={dataUrl}/>

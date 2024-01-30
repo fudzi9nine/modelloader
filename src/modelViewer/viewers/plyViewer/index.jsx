@@ -1,22 +1,15 @@
 import { useLoader } from "@react-three/fiber";
 import { Resize, Center, Stage } from "@react-three/drei";
-import { PLYLoader } from 'three-stdlib'
+import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader'
 import { Points, PointsMaterial } from 'three'
-import { useLoading } from "../../../../services/useLoading";
 
-type Props = {
-  dataUrl: string;
-}
-
-function PlyViewer({dataUrl}: Props){
-  const {setProgress} = useLoading()
-
-  const ply = useLoader(PLYLoader, dataUrl, undefined, setProgress)
-  
+function PlyViewer({dataUrl}){
+  const ply = useLoader(PLYLoader, dataUrl)
   const points = new Points(ply, new PointsMaterial({ size: 0.001 }))
 
+
   return (
-      <Stage shadows={false} >
+      <Stage center={true} shadows={false} >
         <Resize>
           <Center >
             <primitive object={points}  />
