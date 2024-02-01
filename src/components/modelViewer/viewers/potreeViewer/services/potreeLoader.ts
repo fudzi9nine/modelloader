@@ -31,7 +31,6 @@ class PotreeLoader extends Loader {
       .then(pco => {
         const offset = pco.position.clone();
 
-        // eslint-disable-next-line no-param-reassign
         pco.pointSizeType = PointSizeType.FIXED;
         pco.position.set(0, 0, 0);
         pco.setRotationFromEuler(new Euler(-Math.PI / 2, 0, 0));

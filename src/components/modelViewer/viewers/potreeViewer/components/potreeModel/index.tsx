@@ -5,8 +5,8 @@ import React, {memo, useMemo} from 'react';
 import {Box3, type PerspectiveCamera, Vector3} from 'three';
 import {type OrbitControls} from 'three-stdlib';
 
-import PotreeLoader from './services/potreeLoader';
-import useCacheCleanup from './services/useCacheCleanup';
+import PotreeLoader from '../../services/potreeLoader';
+import useCacheCleanup from '../../services/useCacheCleanup';
 
 interface Props {
   dataUrl: string;
@@ -14,7 +14,7 @@ interface Props {
 
 const THROTTLE_INTERVAL_MS = 15;
 
-function PotreeViewer({dataUrl}: Props): React.ReactNode {
+function PotreeModel({dataUrl}: Props): React.ReactNode {
   const pointCloud: PointCloudOctree = useLoader(PotreeLoader, dataUrl);
 
   useCacheCleanup(PotreeLoader, dataUrl);
@@ -44,11 +44,10 @@ function PotreeViewer({dataUrl}: Props): React.ReactNode {
     }, THROTTLE_INTERVAL_MS);
   }, [camera, pointCloud, gl]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   useFrame(update);
 
   // eslint-disable-next-line react/no-unknown-property
   return <primitive object={pointCloud} />;
 }
 
-export default memo(PotreeViewer);
+export default memo(PotreeModel);
