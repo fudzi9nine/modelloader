@@ -10,7 +10,7 @@ interface Props {
   dataUrl: string;
 }
 
-function PlyViewer({dataUrl}: Props): React.JSX.Element {
+function PlyViewer({dataUrl}: Props): React.ReactNode {
   const {setProgress} = useLoading();
 
   const ply = useLoader(PLYLoader, dataUrl, undefined, setProgress);

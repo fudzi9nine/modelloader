@@ -4,7 +4,12 @@ import {Loader, Euler} from 'three';
 const potree = new Potree();
 
 class PotreeLoader extends Loader {
-  async load(dataUrl: string, onLoad: (pointCloud: PointCloudOctree) => void): Promise<void> {
+  async load(
+    dataUrl: string,
+    onLoad: (pointCloud: PointCloudOctree) => void,
+    onProgress: () => void,
+    onError: () => void
+  ): Promise<void> {
     const {origin, pathname} = new URL(dataUrl);
     const base = origin + pathname.slice(0, pathname.lastIndexOf('/'));
     const rootFile = pathname.split('/').pop();
@@ -38,7 +43,7 @@ class PotreeLoader extends Loader {
         onLoad(pco);
       })
       .catch(e => {
-        console.log('here error: ', e);
+        onError();
       });
   }
 }

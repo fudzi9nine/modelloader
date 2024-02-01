@@ -1,15 +1,21 @@
+import {Html} from '@react-three/drei';
 import React from 'react';
 
-import {AssetType} from './constants';
+import {ErrorMessage} from '../errorHandler';
+
+import {AssetType, UNSUPPORTET_FORMAT_MESSAGE} from './constants';
 import {ObjViewer, PlyViewer, PotreeViewer} from './viewers';
 
 interface Props {
   dataUrl: string;
-  assetType: AssetType;
 }
 
-function ModelViewer({dataUrl, assetType}: Props): React.JSX.Element | null {
-  switch (assetType) {
+function ModelViewer({dataUrl}: Props): React.ReactNode {
+  const {pathname} = new URL(dataUrl);
+
+  const ext = pathname.split('.').pop();
+
+  switch (ext?.toLowerCase()) {
     case AssetType.OBJ:
       return <ObjViewer dataUrl={dataUrl} />;
     case AssetType.PLY:
@@ -17,7 +23,11 @@ function ModelViewer({dataUrl, assetType}: Props): React.JSX.Element | null {
     case AssetType.POTREE:
       return <PotreeViewer dataUrl={dataUrl} />;
     default:
-      return null;
+      return (
+        <Html fullscreen>
+          <ErrorMessage message={UNSUPPORTET_FORMAT_MESSAGE} />
+        </Html>
+      );
   }
 }
 

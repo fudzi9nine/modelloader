@@ -21,7 +21,7 @@ interface Props {
   dataUrl: string;
 }
 
-function ObjViewer({dataUrl}: Props): React.JSX.Element {
+function ObjViewer({dataUrl}: Props): React.ReactNode {
   const {setProgress} = useLoading();
 
   const obj = useLoader(OBJLoader, dataUrl, undefined, setProgress);

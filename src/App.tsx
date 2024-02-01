@@ -3,32 +3,33 @@ import {OrbitControls} from '@react-three/drei';
 import {Canvas} from '@react-three/fiber';
 import React, {Suspense} from 'react';
 
+import {ErrorBoundary, ErrorMessage} from './components/errorHandler';
 import Loading from './components/loading';
 import ModelViewer from './components/modelViewer';
-import {AssetType} from './components/modelViewer/constants';
 import {LoaderProvider} from './services/useLoading';
 
-export default function App(): React.JSX.Element | null {
+export default function App(): React.ReactNode {
   const searchParams = new URLSearchParams(document.location.search);
 
   const dataUrl = searchParams.get('dataUrl');
-  const assetType = searchParams.get('assetType');
 
-  if (dataUrl === null || assetType === null) {
-    return null; // todo
+  if (dataUrl === null) {
+    return <ErrorMessage />;
   }
 
   return (
     <LoaderProvider>
-      <Canvas
-        style={{height: '100vh'}}
-        shadows={assetType === AssetType.OBJ}
-        gl={{alpha: true, antialias: true, preserveDrawingBuffer: true}}>
-        <Suspense fallback={<Loading />}>
-          <ModelViewer dataUrl={dataUrl} assetType={assetType as AssetType} />
-          <OrbitControls makeDefault />
-        </Suspense>
-      </Canvas>
+      <ErrorBoundary>
+        <Canvas
+          style={{height: '100vh'}}
+          shadows={true}
+          gl={{alpha: true, antialias: true, preserveDrawingBuffer: true}}>
+          <Suspense fallback={<Loading />}>
+            <ModelViewer dataUrl={dataUrl} />
+            <OrbitControls makeDefault />
+          </Suspense>
+        </Canvas>
+      </ErrorBoundary>
     </LoaderProvider>
   );
 }

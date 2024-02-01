@@ -14,7 +14,7 @@ interface Props {
 
 const THROTTLE_INTERVAL_MS = 15;
 
-function PotreeViewer({dataUrl}: Props): React.JSX.Element {
+function PotreeViewer({dataUrl}: Props): React.ReactNode {
   const pointCloud: PointCloudOctree = useLoader(PotreeLoader, dataUrl);
 
   useCacheCleanup(PotreeLoader, dataUrl);

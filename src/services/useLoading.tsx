@@ -1,4 +1,4 @@
-import React, {type PropsWithChildren, useCallback, useState} from 'react';
+import React, {useCallback, useState, type ReactNode} from 'react';
 
 interface LoadingContextType {
   progress: string;
@@ -10,8 +10,8 @@ const LoaderContext = React.createContext<LoadingContextType>({
   setProgress: () => {}
 } satisfies LoadingContextType);
 
-const LoaderProvider = ({children}: PropsWithChildren<Record<never, never>>): React.JSX.Element => {
-  const [progress, setProgress] = useState<string>('0');
+const LoaderProvider = ({children}: {children: ReactNode}): ReactNode => {
+  const [progress, setProgress] = useState<string>('');
 
   const changeProgress = useCallback((e: ProgressEvent) => {
     setProgress(((e.loaded / e.total) * 100).toFixed(2));

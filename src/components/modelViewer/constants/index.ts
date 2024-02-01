@@ -1,5 +1,7 @@
 export enum AssetType {
-  OBJ = 'OBJ',
-  PLY = 'PLY',
-  POTREE = 'POTREE'
+  OBJ = 'obj',
+  PLY = 'ply',
+  POTREE = 'js'
 }
+
+export const UNSUPPORTET_FORMAT_MESSAGE = 'Unsupported file format';
