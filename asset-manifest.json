@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/modelloader/static/css/main.1377ccdc.css",
-    "main.js": "/modelloader/static/js/main.f8254012.js",
+    "main.js": "/modelloader/static/js/main.f5e3fff9.js",
     "index.html": "/modelloader/index.html",
     "main.1377ccdc.css.map": "/modelloader/static/css/main.1377ccdc.css.map",
-    "main.f8254012.js.map": "/modelloader/static/js/main.f8254012.js.map"
+    "main.f5e3fff9.js.map": "/modelloader/static/js/main.f5e3fff9.js.map"
   },
   "entrypoints": [
     "static/css/main.1377ccdc.css",
-    "static/js/main.f8254012.js"
+    "static/js/main.f5e3fff9.js"
   ]
 }
