@@ -32,7 +32,6 @@ function PotreeViewer({dataUrl}: Props): React.ReactNode {
   const center = box.getCenter(new Vector3());
 
   (controls as OrbitControls)?.target?.set(center.x, center.y, center.z);
-  console.log('controls: ', controls);
 
   const radius = pointCloud.boundingSphere.radius;
   const fov = (camera as PerspectiveCamera).fov;

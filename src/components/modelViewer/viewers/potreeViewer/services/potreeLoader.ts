@@ -16,7 +16,8 @@ class PotreeLoader extends Loader {
     const token = dataUrl.slice((origin + pathname).length);
 
     if (rootFile == null) {
-      return; // todo
+      onError();
+      return;
     }
 
     await (async () => {
@@ -24,8 +25,6 @@ class PotreeLoader extends Loader {
       potree.maxNumNodesLoading = 1;
 
       return await potree.loadPointCloud(rootFile, file => {
-        console.log('file', file);
-        console.log('full link: ', `${base}/${file}${token}`);
         return `${base}/${file}${token}`;
       });
     })()
@@ -39,7 +38,6 @@ class PotreeLoader extends Loader {
         pco.translateX(offset.x);
         pco.translateY(offset.y);
         pco.translateZ(offset.z);
-        console.log('loaded &');
         onLoad(pco);
       })
       .catch(e => {

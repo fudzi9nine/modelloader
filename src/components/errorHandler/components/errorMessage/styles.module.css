@@ -1,0 +1,9 @@
+.message {
+  white-space: pre-wrap;
+  text-align: center;
+  height: 100vh;
+  margin: 0px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}

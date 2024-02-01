@@ -1,30 +1,22 @@
-import './index.css';
 import {Html} from '@react-three/drei';
 import React from 'react';
 
 import {useLoading} from '../../services/useLoading';
 
+import styles from './styles.module.css';
+
 function Loading(): React.JSX.Element {
   const {progress} = useLoading();
+
+  const isLoadingStarted = progress !== '';
+
   return (
-    <Html
-      fullscreen
-      style={{
-        backgroundColor: '#000',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-      <span className="loader" />
+    <Html fullscreen className={styles.container}>
+      <span className={styles.loader} />
       <span
-        style={{
-          color: '#fff',
-          marginTop: 40,
-          marginLeft: 10,
-          width: 130,
-          textAlign: progress !== '' ? 'left' : 'center'
-        }}>{`Loading${progress !== '' ? ` ${progress}%` : ''}`}</span>
+        className={
+          styles.text + (isLoadingStarted ? ' ' + styles.loadingText : '')
+        }>{`Loading${isLoadingStarted ? ` ${progress}%` : '...'}`}</span>
     </Html>
   );
 }

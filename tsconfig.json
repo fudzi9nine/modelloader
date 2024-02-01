@@ -22,6 +22,6 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "include": [".eslintrc.js", "src/**/*", "src/*"],
+  "include": [".eslintrc.js", "src/**/*", "src/*", "declarations.d.ts"],
   "exclude": ["node_modules", "build"]
 }
