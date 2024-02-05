@@ -23,7 +23,11 @@ export default function App(): React.ReactNode {
         <Canvas
           style={{height: '100vh'}}
           shadows={true}
-          gl={{alpha: true, antialias: true, preserveDrawingBuffer: true}}>
+          gl={{
+            alpha: true,
+            antialias: true,
+            preserveDrawingBuffer: true
+          }}>
           <Suspense fallback={<Loading />}>
             <ModelViewer dataUrl={dataUrl} />
             <OrbitControls makeDefault />
