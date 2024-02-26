@@ -5,7 +5,7 @@ import {useLoading} from '../../services/useLoading';
 
 import styles from './styles.module.css';
 
-function Loading(): React.JSX.Element {
+function Loading(): React.ReactNode {
   const {progress} = useLoading();
 
   const isLoadingStarted = progress !== '';

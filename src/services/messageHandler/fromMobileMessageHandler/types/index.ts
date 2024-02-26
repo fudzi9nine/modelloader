@@ -1,7 +1,6 @@
 export interface FromMobileActions {
-  additionalAssets: {
-    assetList: string[];
-  };
+  assetList: string[];
+  dataUrl: string;
 }
 
 export type FromMobileActionName = keyof FromMobileActions;

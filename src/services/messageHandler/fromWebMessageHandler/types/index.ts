@@ -1,7 +1,6 @@
 export interface FromWebActions {
-  typeIdentified: {
-    isIdentified: boolean;
-  };
+  typeIdentified: undefined;
+  pageLoaded: undefined;
 }
 
 export type FromWebActionName = keyof FromWebActions;

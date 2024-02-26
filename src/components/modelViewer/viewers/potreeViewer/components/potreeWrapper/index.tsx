@@ -16,16 +16,16 @@ function PotreeWrapper({dataUrl}: Props): React.ReactNode {
   const [vectors, setVectors] = useState<Vector3[]>([]);
 
   const onGetAssetList = useCallback(
-    ({assetList}: {assetList: string[]}) => {
+    (assetList: string[]) => {
       setAssets(potreeAssetsMapper(assetList, dataUrl));
     },
     [dataUrl]
   );
 
-  useMobileMessageHandler('additionalAssets', onGetAssetList);
+  useMobileMessageHandler('assetList', onGetAssetList);
 
   useEffect(() => {
-    sendMessageToRN('typeIdentified', {isIdentified: true});
+    sendMessageToRN('typeIdentified');
   }, []);
 
   const addVectors = useCallback((newVectors: Vector3[]) => {

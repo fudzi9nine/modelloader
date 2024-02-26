@@ -8,6 +8,6 @@ declare global {
   }
 }
 
-export const sendMessageToRN = <T extends FromWebActionName>(action: T, payload: FromWebActions[T]): void => {
-  window.ReactNativeWebView.postMessage(JSON.stringify({action, payload}));
+export const sendMessageToRN = <T extends FromWebActionName>(action: T, payload?: FromWebActions[T]): void => {
+  window.ReactNativeWebView?.postMessage(JSON.stringify({action, payload}));
 };

@@ -1,21 +1,26 @@
 import './App.css';
 import {OrbitControls} from '@react-three/drei';
 import {Canvas} from '@react-three/fiber';
-import React, {Suspense} from 'react';
+import React, {Suspense, useCallback, useEffect, useState} from 'react';
 
-import {ErrorBoundary, ErrorMessage} from './components/errorHandler';
+import {ErrorBoundary} from './components/errorHandler';
 import Loading from './components/loading';
 import ModelViewer from './components/modelViewer';
+import {sendMessageToRN, useMobileMessageHandler} from './services/messageHandler';
 import {LoaderProvider} from './services/useLoading';
 
 export default function App(): React.ReactNode {
-  const searchParams = new URLSearchParams(document.location.search);
+  const [dataUrl, setDataUrl] = useState<string>('');
 
-  const dataUrl = searchParams.get('dataUrl');
+  const onGetDataUrl = useCallback((url: string) => {
+    setDataUrl(url);
+  }, []);
 
-  if (dataUrl === null) {
-    return <ErrorMessage />;
-  }
+  useMobileMessageHandler('dataUrl', onGetDataUrl);
+
+  useEffect(() => {
+    sendMessageToRN('pageLoaded');
+  }, []);
 
   return (
     <LoaderProvider>
@@ -29,7 +34,7 @@ export default function App(): React.ReactNode {
             preserveDrawingBuffer: true
           }}>
           <Suspense fallback={<Loading />}>
-            <ModelViewer dataUrl={dataUrl} />
+            {dataUrl === '' ? <Loading /> : <ModelViewer dataUrl={dataUrl} />}
             <OrbitControls makeDefault />
           </Suspense>
         </Canvas>
